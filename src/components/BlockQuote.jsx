@@ -1,15 +1,29 @@
 import React from 'react'
 
-const BlockQuote = ({quote,author,quoteId}) => {
+const BlockQuote = ({ quote, author, quoteId, id }) => {
+  // const error = quoteId > "30" && quoteId < "63" 
+  // console.log(quoteId)
+  // const error2 = quoteId > "102"
+
+
+
   return (
     <section>
-    <blockquote className='blockquote mt-4'>
+      {/* <blockquote className='blockquote mt-4'>
+        <p className='mb-3'> No Hay frase con ese numero </p>
+        <footer className='blockquote-footer'>Utilize un numero del 1 al 31 o del 62 al 102 </footer>
+        <p> {quoteId}</p>
+      </blockquote> */}
+
+      <blockquote className='blockquote mt-4'>
+        <p>{id}</p>
         <p className='mb-3'> {quote} </p>
         <footer className='blockquote-footer'>  {author}</footer>
+        <p> {quoteId}</p>
+      </blockquote>
 
-    </blockquote>
-    <p> {quoteId}</p>
-</section>
+
+    </section>
   )
 }
 

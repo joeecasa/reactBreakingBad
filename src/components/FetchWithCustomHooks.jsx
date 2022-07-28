@@ -1,35 +1,49 @@
 import React from 'react'
 import { useState } from 'react'
-import { useCustomFetch } from '../hooks/useCustomFetch'
+import { useCustomFetchQuote } from '../hooks/useCustomFetchQuote'
 import BlockQuote from './BlockQuote'
 import IsLoading from './IsLoading'
 
 const FetchWithCustomHooks = () => {
-    const [inputValue, setInputValue] = useState(0)
-    const [quoteId, setQuoteId] = useState(0)
+    const [inputValue, setInputValue] = useState("")
+    const [quoteId, setQuoteId] = useState("")
 
-    const onFormSubmit = (event) =>{
+    // const onFormSubmit = (event) =>{
+    //     event.preventDefault();
+    //     setQuoteId(inputValue)
+    //     setInputValue("")
+    // } 
+    const onFormSubmit = (event) => {
         event.preventDefault();
-        setQuoteId(inputValue)
-        setInputValue()
-    } 
+        if (parseInt(inputValue) > 30 && parseInt(inputValue) < 71) {
+            setQuoteId(parseInt(inputValue) + 32)
+        } else if(parseInt(inputValue) > 71){
+            setQuoteId(1)
+        }
+        else {
+            setQuoteId(inputValue)
+        }
+        setInputValue("")
+    }
 
-    const onInputChange = (event) =>{
+    const onInputChange = (event) => {
         setInputValue(event.target.value)
-        console.log(inputValue)
     }
 
 
+    const { data, isLoading, hasErrors } = useCustomFetchQuote(`https://www.breakingbadapi.com/api/quotes/${quoteId}`)
 
-
-    const { data, isLoading, hasErrors } = useCustomFetch(`https://www.breakingbadapi.com/api/quotes/${quoteId}`)
-
-    const { quote, author } = !!data && data;
+    const { quote, author, id } = !!data && data;
 
 
     let onButtonClick = () => {
-        setQuoteId(quoteId + 1)
-        console.log(quoteId)
+        let a = parseInt(quoteId)
+        let b = a + 1
+        if (a === NaN) {
+            setQuoteId(0)
+        } else {
+            setQuoteId(b)
+        }
     }
 
     let resetQuote = () => {
@@ -49,17 +63,18 @@ const FetchWithCustomHooks = () => {
                 isLoading ?
                     (<IsLoading />)
                     :
-                    (<BlockQuote quote={quote} quoteId={quoteId} author={author} />)
+                    (<BlockQuote quote={quote} quoteId={quoteId} author={author} id={id} />)
             }
 
             <form onSubmit={onFormSubmit} action="">
-                <input type="number" 
-                name="numero" 
-                placeholder='ingrese el numero de frase'
-                value = {inputValue}
-                onChange={onInputChange}
-                 />
-                 <input type="submit" name="" id="" value="enviar" />
+                <input
+                    type="text"
+                    name="numero"
+                    placeholder='ingrese el numero de frase'
+                    value={inputValue}
+                    onChange={onInputChange}
+                />
+                <input type="submit" name="enviar" />
             </form>
             <button className='btn btn-outline-success w-100'
                 onClick={onButtonClick}

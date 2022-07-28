@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 
-export const useCustomFetch = (url) => {
+export const useCustomFetchQuote = (url) => {
     
     const [state, setState] = useState({
       data : null,
@@ -20,7 +20,8 @@ export const useCustomFetch = (url) => {
         .then(dataApi => setState({
             data : {
                 author: dataApi[0].author,
-                quote: dataApi[0].quote
+                quote: dataApi[0].quote,
+                id : dataApi[0].id,
             },
             isLoading : false,
             hasErrors : null
