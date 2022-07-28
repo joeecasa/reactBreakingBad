@@ -1,11 +1,27 @@
 import React from 'react'
-import { useEffect } from 'react'
 import { useState } from 'react'
 import { useCustomFetch } from '../hooks/useCustomFetch'
+import BlockQuote from './BlockQuote'
+import IsLoading from './IsLoading'
 
 const FetchWithCustomHooks = () => {
+    const [inputValue, setInputValue] = useState(0)
+    const [quoteId, setQuoteId] = useState(0)
 
-    const [quoteId, setQuoteId] = useState(1)
+    const onFormSubmit = (event) =>{
+        event.preventDefault();
+        setQuoteId(inputValue)
+        setInputValue()
+    } 
+
+    const onInputChange = (event) =>{
+        setInputValue(event.target.value)
+        console.log(inputValue)
+    }
+
+
+
+
     const { data, isLoading, hasErrors } = useCustomFetch(`https://www.breakingbadapi.com/api/quotes/${quoteId}`)
 
     const { quote, author } = !!data && data;
@@ -13,6 +29,7 @@ const FetchWithCustomHooks = () => {
 
     let onButtonClick = () => {
         setQuoteId(quoteId + 1)
+        console.log(quoteId)
     }
 
     let resetQuote = () => {
@@ -30,30 +47,20 @@ const FetchWithCustomHooks = () => {
             </section>
             {
                 isLoading ?
-                    (
-                        <section>
-                            <div className="alert alert-info text-center" role="alert">
-                                Loading....
-                            </div>
-                            {/* <div class="spinner-border text-primary" role="status">
-                    <span class="visually-hidden">Loading...</span>
-                </div> */}
-                        </section>
-
-                    )
+                    (<IsLoading />)
                     :
-                    (
-
-                        <section>
-                            <blockquote className='blockquote mt-4'>
-                                <p className='mb-3'> {quote} </p>
-                                <footer className='blockquote-footer'>  {author}</footer>
-
-                            </blockquote>
-                            <p> {quoteId}</p>
-                        </section>
-                    )
+                    (<BlockQuote quote={quote} quoteId={quoteId} author={author} />)
             }
+
+            <form onSubmit={onFormSubmit} action="">
+                <input type="number" 
+                name="numero" 
+                placeholder='ingrese el numero de frase'
+                value = {inputValue}
+                onChange={onInputChange}
+                 />
+                 <input type="submit" name="" id="" value="enviar" />
+            </form>
             <button className='btn btn-outline-success w-100'
                 onClick={onButtonClick}
             >
