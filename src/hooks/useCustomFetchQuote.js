@@ -21,7 +21,7 @@ export const useCustomFetchQuote = (url) => {
             data : {
                 author: dataApi[0].author,
                 quote: dataApi[0].quote,
-                id : dataApi[0].id,
+                id : dataApi[0].quote_id,
             },
             isLoading : false,
             hasErrors : null

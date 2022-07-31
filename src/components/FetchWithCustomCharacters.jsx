@@ -5,8 +5,8 @@ import BlockQuoteCharacters from './BlockQuoteCharacters'
 import IsLoading from './IsLoading'
 
 const FetchWithCustomHooksCharacters = () => {
-    const [inputValue, setInputValue] = useState("")
     const [quoteId, setQuoteId] = useState("")
+    const [inputValue, setInputValue] = useState("")
 
     const onFormSubmit = (event) =>{
         event.preventDefault();
@@ -23,14 +23,19 @@ const FetchWithCustomHooksCharacters = () => {
         setInputValue(event.target.value)
     }
 
-    const { data, isLoading, hasErrors } = useCustomFetchCharacters(`https://www.breakingbadapi.com/api/characters/${quoteId}`)
-    const { img, name, id , nickname } = !!data && data;
+    const { dataC, isLoadingC, hasErrorsC } = useCustomFetchCharacters(`https://www.breakingbadapi.com/api/characters/${quoteId}`)
+    const { img, name, id , nickname } = !!dataC && dataC;
 
 
     let onButtonClick = () => {
         let a = parseInt(quoteId)
         let b = a + 1
-         setQuoteId(b)
+        if(quoteId == ""){
+            setQuoteId(2)
+        } else{
+
+            setQuoteId(b)
+        }
     }
     let onResetQuote = () => {
         setQuoteId(1)
@@ -46,7 +51,7 @@ const FetchWithCustomHooksCharacters = () => {
 
             </section>
             {
-                isLoading ?
+                isLoadingC ?
                     (<IsLoading />)
                     :
                     

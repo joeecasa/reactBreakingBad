@@ -1,6 +1,6 @@
 import React from 'react'
 
-const BlockQuote = ({ quote, author, quoteId, id }) => {
+const BlockQuote = ({ quote, author, quoteId, id, img }) => {
   // const error = quoteId > "30" && quoteId < "63" 
   // console.log(quoteId)
   // const error2 = quoteId > "102"
@@ -19,7 +19,8 @@ const BlockQuote = ({ quote, author, quoteId, id }) => {
         <p>{id}</p>
         <p className='mb-3'> {quote} </p>
         <footer className='blockquote-footer'>  {author}</footer>
-        <p> {quoteId}</p>
+        <img className='w-25' src={img} alt="" />
+    
       </blockquote>
 
 

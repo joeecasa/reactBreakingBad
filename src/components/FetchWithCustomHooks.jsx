@@ -1,18 +1,17 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { useCustomFetchQuote } from '../hooks/useCustomFetchQuote'
 import BlockQuote from './BlockQuote'
 import IsLoading from './IsLoading'
+import { useAllCharacters } from '../hooks/useAllCharacters'
 
 const FetchWithCustomHooks = () => {
     const [inputValue, setInputValue] = useState("")
     const [quoteId, setQuoteId] = useState("")
+    const [imgCharacter, setImgCharacter] = useState("")
+    
 
-    // const onFormSubmit = (event) =>{
-    //     event.preventDefault();
-    //     setQuoteId(inputValue)
-    //     setInputValue("")
-    // } 
+     
     const onFormSubmit = (event) => {
         event.preventDefault();
         if (parseInt(inputValue) > 30 && parseInt(inputValue) < 71) {
@@ -29,19 +28,40 @@ const FetchWithCustomHooks = () => {
     const onInputChange = (event) => {
         setInputValue(event.target.value)
     }
-
-
+   
+    
     const { data, isLoading, hasErrors } = useCustomFetchQuote(`https://www.breakingbadapi.com/api/quotes/${quoteId}`)
-
     const { quote, author, id } = !!data && data;
 
+    const { dataAll, isLoadingAll, hasErrorsAll } = useAllCharacters("https://www.breakingbadapi.com/api/characters")
+
+    const { dataCharacter } = !!dataAll && dataAll;
+
+    
+
+useEffect(()=>{
+    if(dataCharacter){
+        dataCharacter.forEach((element)=>{
+        if(element.name == author){
+            setImgCharacter(element.img)
+        }
+        })
+    }
+    
+})
+console.log(imgCharacter)
+
+
+
+    
 
     let onButtonClick = () => {
         let a = parseInt(quoteId)
         let b = a + 1
-        if (a === NaN) {
-            setQuoteId(0)
-        } else {
+        if(quoteId == ""){
+            setQuoteId(2)
+        } else{
+
             setQuoteId(b)
         }
     }
@@ -63,7 +83,7 @@ const FetchWithCustomHooks = () => {
                 isLoading ?
                     (<IsLoading />)
                     :
-                    (<BlockQuote quote={quote} quoteId={quoteId} author={author} id={id} />)
+                    (<BlockQuote img = {imgCharacter} quote={quote} quoteId={quoteId} author={author} id={id} />)
             }
 
             <form onSubmit={onFormSubmit} action="">
