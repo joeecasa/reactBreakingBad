@@ -16,9 +16,9 @@ const BlockQuote = ({ quote, author, quoteId, id, img }) => {
       </blockquote> */}
 
       <blockquote className='blockquote mt-4'>
-        <p>{id}</p>
-        <p className='mb-3'> {quote} </p>
-        <footer className='blockquote-footer'>  {author}</footer>
+        <p className='text-light'>{id}</p>
+        <p className='mb-3 text-light'> {quote} </p>
+        <footer className='blockquote-footer text-light'>  {author}</footer>
         <img className='w-25' src={img} alt="" />
     
       </blockquote>

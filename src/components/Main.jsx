@@ -1,6 +1,6 @@
 import React from 'react'
 import FetchWithCustomHooksCharacters from "./FetchWithCustomCharacters";
-import FetchWithCustomHooks from "./FetchWithCustomHooks";
+import FetchWithCustomQuotes from "./FetchWithCustomQuotes";
 import Home from './Home';
 import {Routes,Route} from "react-router-dom"
 
@@ -11,7 +11,7 @@ const Main = () => {
 
                 <Route path="/" element={<Home />} />
                 <Route path="/Characters" element={<FetchWithCustomHooksCharacters />} />
-                <Route path="/quotes" element={<FetchWithCustomHooks />} />
+                <Route path="/quotes" element={<FetchWithCustomQuotes />} />
 
             </Routes>
 

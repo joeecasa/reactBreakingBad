@@ -1,0 +1,13 @@
+.img-home{
+    width: 250px;
+}
+.img-characters{
+    width: 200px;
+
+}
+.al-cent{
+    align-items: center;
+}
+.foto{
+    background-image: url("./foto.jpg");
+}

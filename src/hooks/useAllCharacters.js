@@ -18,18 +18,7 @@ export const useAllCharacters = (url) => {
         fetch(url)
         .then(res => res.json())
         .then(dataApi => setState({
-            dataAll : { 
-                dataCharacter : 
-                dataApi.map((personaje)=>{
-                    return {
-                        name : personaje.name,
-                        img : personaje.img
-                    }
-                })}
-           
-                  
-
-             ,
+            dataAll : dataApi ,
             isLoadingAll : false,
             hasErrorsAll : null
         }))
@@ -51,3 +40,5 @@ export const useAllCharacters = (url) => {
 
     
 }
+
+
